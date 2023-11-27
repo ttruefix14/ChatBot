@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBotOld", "ChatBot\ChatB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBot", "ChatBot\ChatBot.csproj", "{A4DBC273-DC1A-4BF6-98F7-EB51747A50C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "Exceptions\Exceptions.csproj", "{F9A0BE61-F834-4EFF-88FA-808BD0FB1FB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A4DBC273-DC1A-4BF6-98F7-EB51747A50C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4DBC273-DC1A-4BF6-98F7-EB51747A50C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4DBC273-DC1A-4BF6-98F7-EB51747A50C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9A0BE61-F834-4EFF-88FA-808BD0FB1FB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9A0BE61-F834-4EFF-88FA-808BD0FB1FB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9A0BE61-F834-4EFF-88FA-808BD0FB1FB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9A0BE61-F834-4EFF-88FA-808BD0FB1FB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

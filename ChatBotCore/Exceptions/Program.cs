@@ -12,9 +12,16 @@ namespace Exceptions
     {
         static void Main(string[] args)
         {
-            var r = GetRowCount("path.txt");
-            Console.WriteLine(r);
-            var v = GetRowCount(null);
+            string path = "jgasdk/asdgalk";
+            try
+            {
+                var v = GetRowCount(path);
+                Console.WriteLine(v);
+            }
+            catch (AppException e)
+            {
+                Console.WriteLine(e.MethodName);
+            }
         }
 
         static int GetRowCount(string path)
@@ -38,7 +45,9 @@ namespace Exceptions
             catch (Exception ex)
             {   
                 Console.WriteLine(ex.Message);
-                return -1;
+                var appEx = new AppException();
+                appEx.MethodName = "GetRowCount";
+                throw appEx;
             }
         }
     }
