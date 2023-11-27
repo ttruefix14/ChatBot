@@ -10,14 +10,11 @@ namespace ChatBot
     {
         static void Main(string[] args)
         {
-            Tutor engTutor = new Tutor();
+            string path = "words.txt";
+            Tutor engTutor = new Tutor(path);
 
             string word;
             string translate;
-            engTutor.AddWord("dog", "собака");
-            engTutor.AddWord("cat", "кошка");
-            engTutor.AddWord("bird", "птица");
-            engTutor.AddWord("whale", "кит");
 
             CheckWordResult result;
             while (true)
@@ -31,7 +28,7 @@ namespace ChatBot
                 switch (result)
                 {
                     case CheckWordResult.Incorrect:
-                        Console.WriteLine($"Правильный ответ: \"{engTutor.Translate(word)}\"");
+                        Console.WriteLine($"Неверно. Правильный ответ: \"{engTutor.Translate(word)}\"");
                         break;
                     case CheckWordResult.Correct:
                         Console.WriteLine("Верно!");
