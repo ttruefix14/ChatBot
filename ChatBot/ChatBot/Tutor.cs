@@ -13,29 +13,19 @@ namespace ChatBot
         private Dictionary<string, string> _words = new Dictionary<string, string>();
         public Dictionary<string, string> Words { get { return _words; } }
         private string _path;
-        private StreamWriter _writer;
+        private WordStorage _storage;
         public Tutor(string path)
         {
-            _path = path;
-            if (!File.Exists(_path))
-                    File.Create(_path).Close();
-
-            using (StreamReader sr = new StreamReader(_path))
-            {
-                string line = "";
-                while ((line = sr.ReadLine()) != null)
-                {
-                    var item = line.Trim().Split('|');
-                    _words.Add(item[0], item[1]);
-                }
-            }
-            _writer = File.AppendText(_path);
+            _storage = new WordStorage(path);
+            _words = _storage.GetAllWords();
         }
         public void AddWord(string word, string translate)
         {
-            _words.Add(word, translate);
-            _writer.WriteLine(word + "|" + translate);
-            _writer.Close();
+            if (!_words.ContainsKey(word))
+            {
+                _words.Add(word, translate);
+                _storage.AddWord(word, translate);
+            }
         }
 
         public CheckWordResult CheckWord(string word, string translate)
