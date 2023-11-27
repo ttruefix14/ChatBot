@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBotOld", "ChatBot\ChatBotOld.csproj", "{67BAD895-4ECC-47E4-8D75-1BEC882930CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBot", "ChatBot\ChatBot.csproj", "{A4DBC273-DC1A-4BF6-98F7-EB51747A50C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67BAD895-4ECC-47E4-8D75-1BEC882930CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67BAD895-4ECC-47E4-8D75-1BEC882930CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67BAD895-4ECC-47E4-8D75-1BEC882930CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67BAD895-4ECC-47E4-8D75-1BEC882930CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4DBC273-DC1A-4BF6-98F7-EB51747A50C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4DBC273-DC1A-4BF6-98F7-EB51747A50C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4DBC273-DC1A-4BF6-98F7-EB51747A50C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4DBC273-DC1A-4BF6-98F7-EB51747A50C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7C8EFB26-63D6-4999-961A-4BD712373DC4}
+	EndGlobalSection
+EndGlobal
