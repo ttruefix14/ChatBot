@@ -5,6 +5,15 @@ using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
+const string COMMAND_LIST = @"Список команд:
+/add <eng> <rus> - добавление английского слова и его перевод в словарь
+/get - получаем случайное английское слово из словаря
+/chech <eng> <rus> - проверяем правильность перевода английского слова
+";
+
+string path = "words.txt";
+Tutor engTutor = new Tutor(path);
+
 TelegramBotClient botClient = new TelegramBotClient("6894971870:AAHpiIXFM5bCX8dSk0VOqh-BgnNjt2hbAgU");
 
 using CancellationTokenSource cts = new();
@@ -43,11 +52,44 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
 
     Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
 
+    var msgArgs = message.Text.Split(' ');
+
+    Message sentMessage;
+    switch (msgArgs[0])
+    {
+        case "/help":
+            sentMessage = await botClient.SendTextMessageAsync(
+                chatId: chatId,
+                text: COMMAND_LIST,
+                cancellationToken: cancellationToken);
+            break;
+        case "/add":
+            engTutor.AddWord(msgArgs[1], msgArgs[2]);
+            break;
+        case "/get":
+            var randomWord = engTutor.GetRandomEngWord() ?? "Слово отсутствует в словаре";
+            sentMessage = await botClient.SendTextMessageAsync(
+                chatId: chatId,
+                text: randomWord,
+                cancellationToken: cancellationToken);
+            break;
+        case "/check":
+            var result = engTutor.CheckWord(msgArgs[1], msgArgs[2]) switch
+            {
+                CheckWordResult.Unknown => "Слово отсутствует в словаре",
+                CheckWordResult.Incorrect => $"Правильный ответ {engTutor.Translate(msgArgs[1])}",
+                CheckWordResult.Correct => "Верно!",
+                _ => "Неизвестно"
+            };
+            sentMessage = await botClient.SendTextMessageAsync(
+                chatId: chatId,
+                text: result,
+                cancellationToken: cancellationToken);
+            break;
+    }
+
     // Echo received message text
-    Message sentMessage = await botClient.SendTextMessageAsync(
-        chatId: chatId,
-        text: $"{username}:\n" + messageText,
-        cancellationToken: cancellationToken);
+     
 }
 
 Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
