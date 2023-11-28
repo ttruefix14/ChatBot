@@ -12,16 +12,32 @@ namespace Exceptions
     {
         static void Main(string[] args)
         {
-            string path = "jgasdk/asdgalk";
+            var nums = GetArrayFromFile("path.txt");
+            foreach(var x in nums)
+            {
+                Console.WriteLine(x);
+            }
+        }
+
+        static int[] GetArrayFromFile (string path)
+        {
             try
             {
-                var v = GetRowCount(path);
-                Console.WriteLine(v);
+                string text = File.ReadAllText(path);
+                var textNumbers = text.Split(' ');
+                int[] numbers = new int[textNumbers.Length];
+                for (int i = 0; i < textNumbers.Length; i++)
+                {
+                    numbers[i] = int.Parse(textNumbers[i]);
+                }
+                return numbers;
             }
-            catch (AppException e)
+            catch(Exception ex)
             {
-                Console.WriteLine(e.MethodName);
+                Console.WriteLine("Не удалось считать содержимое файла");
+                return new int[0];
             }
+
         }
 
         static int GetRowCount(string path)
