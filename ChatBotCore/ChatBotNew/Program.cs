@@ -8,13 +8,13 @@ using Telegram.Bot.Types.Enums;
 const string COMMAND_LIST = @"Список команд:
 /add <eng> <rus> - добавление английского слова и его перевод в словарь
 /get - получаем случайное английское слово из словаря
-/chech <eng> <rus> - проверяем правильность перевода английского слова
+/check <eng> <rus> - проверяем правильность перевода английского слова
 ";
 
 string path = "words.txt";
 Tutor engTutor = new Tutor(path);
 
-TelegramBotClient botClient = new TelegramBotClient("6894971870:AAHpiIXFM5bCX8dSk0VOqh-BgnNjt2hbAgU");
+TelegramBotClient botClient = new TelegramBotClient(args[0]);
 
 using CancellationTokenSource cts = new();
 
@@ -64,20 +64,31 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
                 cancellationToken: cancellationToken);
             break;
         case "/add":
+            if (msgArgs.Length < 3) 
+            {
+                Console.WriteLine("Неверное количество аргументов");
+                return; 
+            }
             engTutor.AddWord(msgArgs[1], msgArgs[2]);
             break;
         case "/get":
             var randomWord = engTutor.GetRandomEngWord() ?? "Слово отсутствует в словаре";
+            
             sentMessage = await botClient.SendTextMessageAsync(
                 chatId: chatId,
                 text: randomWord,
                 cancellationToken: cancellationToken);
             break;
         case "/check":
+            if (msgArgs.Length < 3)
+            {
+                Console.WriteLine("Неверное количество аргументов");
+                return;
+            }
             var result = engTutor.CheckWord(msgArgs[1], msgArgs[2]) switch
             {
-                CheckWordResult.Unknown => "Слово отсутствует в словаре",
-                CheckWordResult.Incorrect => $"Правильный ответ {engTutor.Translate(msgArgs[1])}",
+                CheckWordResult.Unknown => $"Слово \"{msgArgs[1]}\" отсутствует в словаре",
+                CheckWordResult.Incorrect => $"Правильный ответ: \"{engTutor.Translate(msgArgs[1])}\"",
                 CheckWordResult.Correct => "Верно!",
                 _ => "Неизвестно"
             };
