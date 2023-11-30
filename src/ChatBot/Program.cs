@@ -22,11 +22,8 @@ const string COMMAND_LIST = @"Список команд:
 
 Dictionary<long, string> userWords = new Dictionary<long, string>();
 
-string path = "words.txt";
+string path = Environment.GetEnvironmentVariable("Storage") ?? "Хранилище не задано";
 Tutor engTutor = new Tutor(path);
-
-
-
 
 TelegramBotClient botClient = new TelegramBotClient(TOKEN);
 
