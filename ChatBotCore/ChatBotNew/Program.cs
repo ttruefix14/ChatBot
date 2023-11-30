@@ -11,6 +11,8 @@ const string COMMAND_LIST = @"Список команд:
 /check <eng> <rus> - проверяем правильность перевода английского слова
 ";
 
+Dictionary<long, string> userWords = new Dictionary<long, string>();
+
 string path = "words.txt";
 Tutor engTutor = new Tutor(path);
 
@@ -55,7 +57,7 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
     var msgArgs = message.Text.Split(' ');
 
     Message sentMessage;
-    string text;
+    string text = "Неизвестная команда";
     switch (msgArgs[0])
     {
         case "/help":
@@ -66,15 +68,27 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
             text = engTutor.AddWord(msgArgs);
             break;
         case "/get":
-            text = engTutor.GetRandomEngWord() ?? "Словарь пуст";
+            var randomWord = (engTutor.GetRandomEngWord() ?? "Словарь пуст");
+            text = randomWord switch
+            {
+                "Словарь пуст" => "Словарь пуст",
+                _ => $"Переведите слово \"{randomWord}\""
+            };
+            if (text != "Словарь пуст")
+                userWords.Add(chatId, randomWord);
             break;
         case "/check":
             text = engTutor.CheckWord(msgArgs);
             break;
         default:
-            text = "Неизвестная команда";
+            if (!msgArgs[0].StartsWith('/') && userWords.ContainsKey(chatId))
+            {
+                text = engTutor.CheckWord(new string[] { "/check", userWords[chatId], msgArgs[0] });
+                userWords.Remove(chatId);
+            }
             break;
     }
+
     sentMessage = await botClient.SendTextMessageAsync(
         chatId: chatId,
         text: text,
@@ -95,48 +109,3 @@ Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, 
     Console.WriteLine(ErrorMessage);
     return Task.CompletedTask;
 }
-
-//string path = "words.txt";
-//Tutor engTutor = new Tutor(path);
-
-////engTutor.AddWord("dog", "собака");
-////engTutor.AddWord("cat", "кошка");
-////engTutor.AddWord("bird", "птица");
-////engTutor.AddWord("fish", "рыба");
-
-//string? word;
-//string? translate;
-
-//CheckWordResult result;
-
-//while (true)
-//{
-//    word = engTutor.GetRandomEngWord();
-//    if (word == null)
-//    {
-//        Console.WriteLine("Словарь пуст");
-//        break; 
-//    }
-
-//    Console.Write($"Переведите слово {word}: ");
-//    translate = Console.ReadLine();
-//    if (translate == null)
-//    {
-//        Console.WriteLine("Слова нет в словаре");
-//        break;
-//    }
-//    result = engTutor.CheckWord(word, translate);
-
-//    switch (result)
-//    {
-//        case CheckWordResult.Incorrect:
-//            Console.WriteLine($"Неверно. Правильный ответ: \"{engTutor.Translate(word)}\"");
-//            break;
-//        case CheckWordResult.Correct:
-//            Console.WriteLine("Верно!");
-//            break;
-//        case CheckWordResult.Unknown:
-//            Console.WriteLine("Неизвестное слово");
-//            break;
-//    }
-//}
