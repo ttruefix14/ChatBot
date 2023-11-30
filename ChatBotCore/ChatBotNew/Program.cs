@@ -4,11 +4,13 @@ using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using static System.Net.Mime.MediaTypeNames;
 
 const string COMMAND_LIST = @"Список команд:
 /add <eng> <rus> - добавление английского слова и его перевод в словарь
 /get - получаем случайное английское слово из словаря
 /check <eng> <rus> - проверяем правильность перевода английского слова
+/stop - остановить вывод английских слов
 ";
 
 Dictionary<long, string> userWords = new Dictionary<long, string>();
@@ -57,9 +59,13 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
     var msgArgs = message.Text.Split(' ');
 
     Message sentMessage;
-    string text = "Неизвестная команда";
+    string text = COMMAND_LIST;
     switch (msgArgs[0])
     {
+        case "/stop":
+            text = "Игра окончена!";
+            userWords.Remove(chatId);
+            break;
         case "/help":
         case "/start":
             text = COMMAND_LIST;
@@ -68,23 +74,18 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
             text = engTutor.AddWord(msgArgs);
             break;
         case "/get":
-            var randomWord = (engTutor.GetRandomEngWord() ?? "Словарь пуст");
-            text = randomWord switch
-            {
-                "Словарь пуст" => "Словарь пуст",
-                _ => $"Переведите слово \"{randomWord}\""
-            };
-            if (text != "Словарь пуст")
-                userWords.Add(chatId, randomWord);
+            text = GetRandomWord(chatId, engTutor);
             break;
         case "/check":
             text = engTutor.CheckWord(msgArgs);
+            text = $"{text}\r\n{GetRandomWord(chatId, engTutor)}";
             break;
         default:
             if (!msgArgs[0].StartsWith('/') && userWords.ContainsKey(chatId))
             {
                 text = engTutor.CheckWord(new string[] { "/check", userWords[chatId], msgArgs[0] });
                 userWords.Remove(chatId);
+                text = $"{text}\r\n{GetRandomWord(chatId, engTutor)}";
             }
             break;
     }
@@ -95,6 +96,20 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
         cancellationToken: cancellationToken);
     // Echo received message text
 
+}
+
+string GetRandomWord(long chatId, Tutor engTutor)
+{
+    string text;
+    var randomWord = (engTutor.GetRandomEngWord() ?? "Словарь пуст");
+    text = randomWord switch
+    {
+        "Словарь пуст" => "Словарь пуст",
+        _ => $"Переведите слово \"{randomWord}\""
+    };
+    if (text != "Словарь пуст")
+        userWords.Add(chatId, randomWord);
+    return text;
 }
 
 Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
