@@ -1,6 +1,6 @@
 ﻿using static System.Net.Mime.MediaTypeNames;
 
-namespace ChatBotNew
+namespace ChatBot
 {
     class Tutor
     {

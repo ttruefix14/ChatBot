@@ -1,4 +1,4 @@
-﻿namespace ChatBotNew
+﻿namespace ChatBot
 {
     class WordStorage
     {

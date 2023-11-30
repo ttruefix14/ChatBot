@@ -1,0 +1,14 @@
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\bin\Debug\net7.0\Exceptions.exe
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\bin\Debug\net7.0\Exceptions.deps.json
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\bin\Debug\net7.0\Exceptions.runtimeconfig.json
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\bin\Debug\net7.0\Exceptions.dll
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\bin\Debug\net7.0\Exceptions.pdb
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\obj\Debug\net7.0\Exceptions.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\obj\Debug\net7.0\Exceptions.AssemblyInfoInputs.cache
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\obj\Debug\net7.0\Exceptions.AssemblyInfo.cs
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\obj\Debug\net7.0\Exceptions.csproj.CoreCompileInputs.cache
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\obj\Debug\net7.0\Exceptions.dll
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\obj\Debug\net7.0\refint\Exceptions.dll
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\obj\Debug\net7.0\Exceptions.pdb
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\obj\Debug\net7.0\Exceptions.genruntimeconfig.cache
+C:\Users\ya.shatalov\Desktop\IT\Csharp\Projects\ChatBot\ChatBotCore\Exceptions\obj\Debug\net7.0\ref\Exceptions.dll
