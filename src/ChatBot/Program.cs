@@ -1,10 +1,17 @@
-﻿using Telegram;
+﻿using Microsoft.Extensions.Configuration;
+using Telegram;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using static System.Net.Mime.MediaTypeNames;
+
+var builder = new ConfigurationBuilder();
+builder.SetBasePath(Directory.GetCurrentDirectory())
+       .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+IConfiguration config = builder.Build();
+string TOKEN = config["token"] ?? "Токен не задан";
 
 const string COMMAND_LIST = @"Список команд:
 /add <eng> <rus> - добавление английского слова и его перевод в словарь
@@ -18,7 +25,11 @@ Dictionary<long, string> userWords = new Dictionary<long, string>();
 string path = "words.txt";
 Tutor engTutor = new Tutor(path);
 
-TelegramBotClient botClient = new TelegramBotClient(args[0]);
+
+
+
+TelegramBotClient botClient = new TelegramBotClient(TOKEN);
+
 
 using CancellationTokenSource cts = new();
 
