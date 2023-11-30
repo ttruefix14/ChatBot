@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatBot", "ChatBot\ChatBot.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exceptions", "Exceptions\Exceptions.csproj", "{F9A0BE61-F834-4EFF-88FA-808BD0FB1FB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBotNew", "ChatBotNew\ChatBotNew.csproj", "{A6169B89-4D63-470D-B3ED-0EA2635C1EC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatBotNew", "ChatBotNew\ChatBotNew.csproj", "{A6169B89-4D63-470D-B3ED-0EA2635C1EC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

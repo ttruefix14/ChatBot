@@ -1,4 +1,6 @@
-﻿namespace ChatBotNew
+﻿using static System.Net.Mime.MediaTypeNames;
+
+namespace ChatBotNew
 {
     class Tutor
     {
@@ -19,7 +21,15 @@
                 _storage.AddWord(word, translate);
             }
         }
-
+        public string AddWord(string[] msgArgs)
+        {
+            if (msgArgs.Length < 3)
+            {
+                return "Неверное количество аргументов";
+            }
+            AddWord(msgArgs[1], msgArgs[2]);
+            return "Слово добавлено в словарь";
+        }
         public CheckWordResult CheckWord(string word, string translate)
         {
             if (!_words.ContainsKey(word))
@@ -34,6 +44,22 @@
             {
                 return CheckWordResult.Incorrect;
             }
+        }
+        public string CheckWord(string[] msgArgs)
+        {
+            string text;
+            if (msgArgs.Length < 3)
+            {
+                return "Неверное количество аргументов";
+            }
+            text = CheckWord(msgArgs[1], msgArgs[2]) switch
+            {
+                CheckWordResult.Unknown   => $"Слово \"{msgArgs[1]}\" отсутствует в словаре",
+                CheckWordResult.Incorrect => $"Правильный ответ: \"{Translate(msgArgs[1])}\"",
+                CheckWordResult.Correct   => "Верно!",
+                _ => "Неизвестно"
+            };
+            return text;
         }
         public string? Translate(string word)
         {
